@@ -30,8 +30,7 @@ namespace EventSourcingDemo.Objects
         {
             if (index < 0 || index >= Events.Count)
                 throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range.");
-            while (Events.Count > index + 1)
-                Events.RemoveAt(Events.Count - 1);
+            Events.RemoveRange(index + 1, Events.Count - index - 1);
         }
 
         public List<Item> StreamEvents()

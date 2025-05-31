@@ -114,7 +114,7 @@ public partial class MainWindow : Window
         try
         {
             int endIndex = EventList.SelectedIndex;
-            DataList.ItemsSource = new ObservableCollection<Item>(itemStore.StreamEvents(endIndex));
+            ReloadData(endIndex);
         }
         catch (ArgumentOutOfRangeException ex)
         {
