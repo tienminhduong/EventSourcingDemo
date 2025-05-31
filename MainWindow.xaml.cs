@@ -40,8 +40,7 @@ public partial class MainWindow : Window
         int itemAmount = int.TryParse(ItemAmountTextBox.Text, out int amount) ? amount : 0;
         float itemPrice = float.TryParse(ItemPriceTextBox.Text, out float price) ? price : 0.0f;
 
-        Item newItem = new(itemName, itemAmount, itemPrice);
-        itemStore.AddEvent(new AddItemEvent(newItem));
+        itemStore.AddEvent(new AddItemEvent(itemName, itemAmount, itemPrice));
         ReloadData();
     }
 
@@ -101,6 +100,13 @@ public partial class MainWindow : Window
         this.events.Clear();
         foreach (var e in events)
             this.events.Add(e);
+
+        // log items to console
+        Trace.WriteLine("====================\nCurrent Items:");
+        foreach (var item in items)
+        {
+            Trace.WriteLine($"Name: {item.Name}, Amount: {item.Amount}, Price: {item.Price}");
+        }
     }
 
     private void CheckoutEvent_Click(object sender, RoutedEventArgs e)

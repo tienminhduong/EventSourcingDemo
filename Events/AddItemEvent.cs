@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace EventSourcingDemo.Events
 {
-    public record AddItemEvent(Item item) : IEvent
+    public record AddItemEvent(string name, int amount, float price) : IEvent
     {
         public void Apply(object target)
         {
             if (target is not List<Item> items)
                 throw new ArgumentException("Target must be a List<Item>", nameof(target));
 
-            items.Add(item);
+            items.Add(new(name, amount, price));
         }
 
-        public string Log => $"Time stamp: {TimeStamp}, Added item: {item.Name}, Amount: {item.Amount}, Price: {item.Price}";
+        public string Log => $"Time stamp: {TimeStamp}, Added item: {name}, Amount: {amount}, Price: {price}";
 
         public DateTime TimeStamp { get; init; } = DateTime.Now;
 
