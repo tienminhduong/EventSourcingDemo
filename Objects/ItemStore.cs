@@ -10,8 +10,8 @@ namespace EventSourcingDemo.Objects
 {
     public class ItemStore
     {
-        public ObservableCollection<IEvent> Events { get; private set; } = [];
-        public ObservableCollection<Item> Items { get; private set; } = [];
+        public List<IEvent> Events { get; private set; } = [];
+        public List<Item> Items { get; private set; } = [];
 
         public void AddEvent(IEvent e)
         {
@@ -34,7 +34,7 @@ namespace EventSourcingDemo.Objects
                 Events.RemoveAt(Events.Count - 1);
         }
 
-        public ObservableCollection<Item> StreamEvents()
+        public List<Item> StreamEvents()
         {
             Items.Clear();
             foreach (var e in Events)
@@ -43,7 +43,7 @@ namespace EventSourcingDemo.Objects
             return Items;
         }
 
-        public ObservableCollection<Item> StreamEvents(int endIndex)
+        public List<Item> StreamEvents(int endIndex)
         {
             if (endIndex < 0 || endIndex >= Events.Count)
                 throw new ArgumentOutOfRangeException(nameof(endIndex), "End index is out of range.");

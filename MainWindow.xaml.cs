@@ -20,15 +20,16 @@ namespace EventSourcingDemo;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private ObservableCollection<Item> items = [];
+    private ObservableCollection<IEvent> events = [];
+
     public MainWindow()
     {
         InitializeComponent();
 
-        itemStore.AddEvent(new AddItemEvent(new("Banana", 10, 1.99f)));
-        itemStore.StreamEvents();
-        DataList.ItemsSource = itemStore.Items;
+        DataList.ItemsSource = this.items;
 
-        EventList.ItemsSource = itemStore.Events;
+        EventList.ItemsSource = this.events;
     }
 
     private ItemStore itemStore = new();
@@ -84,10 +85,22 @@ public partial class MainWindow : Window
         }
     }
 
-    private void ReloadData()
+    private void ReloadData(int index = -999)
     {
-        itemStore.StreamEvents();
-        CollectionViewSource.GetDefaultView(DataList.ItemsSource).Refresh();
+        List<Item> items;
+        if (index == -999)
+            items = itemStore.StreamEvents();
+        else
+            items = itemStore.StreamEvents(index);
+        List<IEvent> events = itemStore.Events;
+
+        this.items.Clear();
+        foreach (var item in items)
+            this.items.Add(item);
+
+        this.events.Clear();
+        foreach (var e in events)
+            this.events.Add(e);
     }
 
     private void CheckoutEvent_Click(object sender, RoutedEventArgs e)

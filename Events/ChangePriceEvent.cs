@@ -12,8 +12,8 @@ namespace EventSourcingDemo.Events
     {
         public void Apply(object target)
         {
-            if (target is not ObservableCollection<Item> items)
-                throw new ArgumentException("Target must be a ObservableCollection<Item>", nameof(target));
+            if (target is not List<Item> items)
+                throw new ArgumentException("Target must be a List<Item>", nameof(target));
 
             if (itemIndex < 0 || itemIndex >= items.Count)
                 throw new ArgumentOutOfRangeException(nameof(itemIndex), "Item index is out of range.");
