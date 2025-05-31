@@ -1,0 +1,81 @@
+﻿<Window x:Class="EventSourcingDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventSourcingDemo"
+        mc:Ignorable="d"
+        Title="Event sourcing demo" Height="900" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <ListView Grid.Column="0" Grid.Row="0" x:Name="DataList" FontSize="30">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" Width="200"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView Grid.Column="0" Grid.Row="1" x:Name="EventList" FontSize="30">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Log}" TextWrapping="Wrap" FontSize="20"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Name: " FontSize="20" Margin="0,0,0,10"/>
+                <TextBox x:Name="ItemNameTextBox" FontSize="20" Margin="0,0,0,10" Grid.Column="1"/>
+                <TextBlock Text="Amount: " FontSize="20" Margin="0,0,0,10" Grid.Row="1"/>
+                <TextBox x:Name="ItemAmountTextBox" FontSize="20" Margin="0,0,0,10" Grid.Column="1" Grid.Row="1"/>
+                <TextBlock Text="Price: " FontSize="20" Margin="0,0,0,10" Grid.Row="2"/>
+                <TextBox x:Name="ItemPriceTextBox" FontSize="20" Margin="0,0,0,10" Grid.Column="1" Grid.Row="2"/>
+
+            </Grid>
+            <Button x:Name="AddButton" Content="Add item" FontSize="20" Margin="0,0,0,10" Click="AddButton_Click"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="New amount: " FontSize="20" Margin="0,0,0,10"/>
+                <TextBox x:Name="ChangeAmountTextBox" FontSize="20" Width="100" Margin="10,0,0,0"/>
+            </StackPanel>
+
+            <Button x:Name="ChangeAmountButton" Content="Change item amount" FontSize="20" Margin="0,0,0,10" Click="ChangeAmountButton_Click"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="New price: " FontSize="20" Margin="0,0,0,10"/>
+                <TextBox x:Name="ChangePriceTextBox" FontSize="20" Width="100" Margin="35,0,0,0"/>
+            </StackPanel>
+
+            <Button x:Name="ChangePriceButton" Content="Change item price" FontSize="20" Margin="0,0,0,10" Click="ChangePriceButton_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="10">
+            <Button x:Name="UndoButton" Content="Undo" FontSize="20" Margin="0,0,0,10" Click="UndoButton_Click"/>
+            <Button x:Name="CheckoutEventButton" Content="Checkout" FontSize="20" Margin="0,0,0,10" Click="CheckoutEvent_Click"/>
+            <Button x:Name="RevertEventButton" Content="Revert" FontSize="20" Margin="0,0,0,10" Click="RevertEvent_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
