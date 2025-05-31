@@ -135,4 +135,27 @@ public partial class MainWindow : Window
             MessageBox.Show(ex.Message);
         }
     }
+
+    private void RemoveItemButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            int itemIndex = DataList.SelectedIndex;
+            if (itemIndex < 0 || itemIndex >= itemStore.Items.Count)
+            {
+                MessageBox.Show("Please select a valid item.");
+                return;
+            }
+            itemStore.AddEvent(new RemoveItemEvent(itemIndex));
+            ReloadData();
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+        catch (InvalidOperationException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+    }
 }

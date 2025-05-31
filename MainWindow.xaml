@@ -70,6 +70,7 @@
             </StackPanel>
 
             <Button x:Name="ChangePriceButton" Content="Change item price" FontSize="20" Margin="0,0,0,10" Click="ChangePriceButton_Click"/>
+            <Button x:Name="RemoveItemButton" Content="Remove item" FontSize="20" Margin="0,0,0,10" Click="RemoveItemButton_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="10">
