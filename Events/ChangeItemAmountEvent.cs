@@ -17,9 +17,9 @@ namespace EventSourcingDemo.Events
 
             if (itemIndex < 0 || itemIndex >= items.Count)
                 throw new ArgumentOutOfRangeException(nameof(itemIndex), "Item index is out of range.");
-
             items[itemIndex].Amount = NewAmount;
         }
+        public int NewInputAmount => NewAmount;
         public string Log => $"Time stamp: {TimeStamp}, Changed amount of item at index {itemIndex} to {NewAmount}";
         public DateTime TimeStamp { get; init; } = DateTime.Now;
     }

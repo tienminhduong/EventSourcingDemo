@@ -1,4 +1,5 @@
-﻿using EventSourcingDemo.Events;
+﻿using EventSourcingDemo.EDA;
+using EventSourcingDemo.Events;
 using EventSourcingDemo.Objects;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -33,6 +34,7 @@ public partial class MainWindow : Window
     }
 
     private ItemStore itemStore = new();
+    private Listener listener = new();
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
@@ -100,13 +102,6 @@ public partial class MainWindow : Window
         this.events.Clear();
         foreach (var e in events)
             this.events.Add(e);
-
-        // log items to console
-        Trace.WriteLine("====================\nCurrent Items:");
-        foreach (var item in items)
-        {
-            Trace.WriteLine($"Name: {item.Name}, Amount: {item.Amount}, Price: {item.Price}");
-        }
     }
 
     private void CheckoutEvent_Click(object sender, RoutedEventArgs e)

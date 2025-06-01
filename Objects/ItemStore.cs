@@ -1,4 +1,5 @@
-﻿using EventSourcingDemo.Events;
+﻿using EventSourcingDemo.EDA;
+using EventSourcingDemo.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace EventSourcingDemo.Objects
         public void AddEvent(IEvent e)
         {
             Events.Add(e);
+            EventBroker.Publish(e);
         }
 
         public void Undo()
